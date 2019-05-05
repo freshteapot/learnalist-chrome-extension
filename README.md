@@ -1,6 +1,8 @@
 # Learnalist chrome extension
 
 # Notes
+* This works with "https://learnalist.net/api".
+* It also works with your own version of the [learnalist-api](https://github.com/freshteapot/learnalist-api/).
 * You will need a user, or else it wont work.
 * It is a first version, no tests and put together just because I can.
 
