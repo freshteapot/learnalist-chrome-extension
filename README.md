@@ -17,7 +17,7 @@ git clone https://github.com/freshteapot/learnalist-chrome-extension.git
 
 * Open chrome and goto:
 ```
-chrome://extension
+chrome://extensions
 ```
 * Click Load unpacked
 * Find the repo and select "learnalist"
