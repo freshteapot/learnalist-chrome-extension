@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Options</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+    <div v-if="errorMessage !== ''">
+      <h2 style="color:#ff0000;">{{ errorMessage }}</h2>
+    </div>
+
+    <label for="f-server">Server</label>
+    <input style="width: 100%;" type="text" name="f-server" v-model="server" placeholder="https://learnalist.net/api">
+
+    <label for="f-username">Username</label>
+    <input style="width: 100%; "type="text" name="f-username" v-model="username">
+    <label for="f-password">Password</label>
+    <input style="width: 100%;" type="password" name="f-password" v-model="password">
+
+    <br><br>
+    <button v-on:click="saveOptions">OK</button>
+    <button v-on:click="resetOptions">reset / clear / delete</button>
+</div>
+
+<script src="https://cdn.bootcss.com/vue/2.6.6/vue.js"></script>
+<script src="options.js"></script>
+
+</body>
+</html>

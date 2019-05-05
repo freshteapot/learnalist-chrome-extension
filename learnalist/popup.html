@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Popup</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+    <h2>Learnalist</h2>
+    <button v-on:click="showScreenLists">show lists</button>
+    <button v-on:click="showScreenAddList">new</button>
+    <div v-if="renderScreen === 'lists'">
+      <li v-for="aList in manyLists" v-bind:key="aList.uuid">
+        <span v-on:click="showScreenView(aList, $event)">{{ aList.info.title }}</span>
+      </li>
+    </div>
+    <div v-if="renderScreen === 'alist:view:v1'">
+        <span>View</span>
+        <span>{{ aList.info.title }}</span>
+        <button v-on:click="showScreenListEdit">Edit</button>
+        <button v-on:click="deleteList">delete</button>
+        <ul>
+          <li v-for="(item, index) in aList.data">
+            <pre>{{ item }}</pre>
+          </li>
+        </ul>
+    </div>
+
+    <div v-if="renderScreen === 'alist:edit:v1'">
+      <span>Edit</span>
+      <span>{{ aList.info.title }}</span>
+      <div>
+        <span>Add</span>
+        <form v-on:submit.prevent="onSubmit">
+          <input type="text"/>
+          <input type="submit" v-on:click="addListItemV1"/>
+        </form>
+      </div>
+      <ul>
+        <li v-for="(item, index) in aList.data">
+          <input :key="index" type="text" :value="item" v-on:change="updateListItemV1(index, item, $event)"/>
+        </li>
+      </ul>
+      <button v-on:click="saveListV1(aList)">save</button>
+    </div>
+
+
+    <div v-if="renderScreen === 'alist:view:v2'">
+        <span>View</span>
+        <span>{{ aList.info.title }}</span>
+        <button v-on:click="showScreenListEdit">Edit</button>
+        <button v-on:click="deleteList">delete</button>
+        <ul>
+          <li v-for="(item, index) in aList.data">
+            <pre>{{ item.from }} -> {{ item.to }}</pre>
+          </li>
+        </ul>
+    </div>
+
+    <div v-if="renderScreen === 'alist:edit:v2'">
+      <span>Edit</span>
+      <span>{{ aList.info.title }}</span>
+      <div>
+        <span>Add</span>
+        <form v-on:submit.prevent="onSubmit">
+          <input data-which="from" type="text"/>
+          <input data-which="to" type="text"/>
+          <input type="submit" v-on:click="addListItemV2"/>
+        </form>
+      </div>
+      <ul>
+        <li v-for="(item, index) in aList.data">
+          <input data-which="from" type="text" :value="item.from" v-on:change="updateListItemV2(index, item, $event)"/>
+          <input data-which="to" type="text" :value="item.to" v-on:change="updateListItemV2(index, item, $event)"/>
+        </li>
+      </ul>
+      <button v-on:click="saveListV2(aList)">save</button>
+    </div>
+
+    <div v-if="renderScreen === 'alist:new'">
+      <span>Add</span>
+      <form v-on:submit.prevent.self>
+        <input type="text" placeholder="Title"/><br>
+        <span>Which list type?</span><br>
+        <select>
+          <option value="v1">v1</option>
+          <option value="v2">v2</option>
+        </select>
+        <input type="submit" v-on:click="addNewList"/>
+      </form>
+    </div>
+
+    <div v-if="renderScreen === 'setoptions'">
+      <span>You need to configure your credentials.</span><br>
+      <button v-on:click="openOptions">open options</button>
+    </div>
+</div>
+
+<script src="https://cdn.bootcss.com/vue/2.6.6/vue.js"></script>
+<script src="popup.js"></script>
+
+</body>
+</html>
