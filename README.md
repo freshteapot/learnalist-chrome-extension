@@ -39,4 +39,4 @@ chrome://extension
 ## Options page
 ![](screenshots/options.screen.png)
 ## Sample lists screen
-![](screenshots/sample.list.png)
+![](screenshots/sample.lists.png)
