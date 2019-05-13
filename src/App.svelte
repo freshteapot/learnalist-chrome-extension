@@ -9,10 +9,8 @@
 
   import ListsByMe from "./lists.by.me.svelte";
   import ListAdd from "./list.add.svelte";
-  import ListEditV1 from "./list.edit.v1.svelte";
-  import ListEditV2 from "./list.edit.v2.svelte";
-  import ListViewV1 from "./list.view.v1.svelte";
-  import ListViewV2 from "./list.view.v2.svelte";
+  import ListEdit from "./list.edit.svelte";
+  import ListView from "./list.view.svelte";
 
   const options = {
     version: ApiVersion,
@@ -22,10 +20,8 @@
     "label:new": LabelAdd,
     "lists:by:me": ListsByMe,
     "alist:new": ListAdd,
-    "alist:edit:v1": ListEditV1,
-    "alist:edit:v2": ListEditV2,
-    "alist:view:v1": ListViewV1,
-    "alist:view:v2": ListViewV2
+    "alist:edit": ListEdit,
+    "alist:view": ListView
   };
 </script>
 

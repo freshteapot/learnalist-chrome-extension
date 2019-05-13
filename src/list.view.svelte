@@ -1,14 +1,18 @@
 <script>
   import { onDestroy } from "svelte";
   import { router, aList } from "./router.js";
+  import ItemV1 from "./list.view.data.item.v1.svelte";
+  import ItemV2 from "./list.view.data.item.v2.svelte";
 
   let title;
   let labels = [];
   let data = [];
+  let listType;
   const unsubscribe = aList.subscribe(value => {
     title = $aList.info.title;
     labels = $aList.info.labels;
     data = $aList.data;
+    listType = $aList.info.type;
   });
 
   onDestroy(unsubscribe);
@@ -16,19 +20,15 @@
   const onClick = () => {
     router.showScreenListEdit($aList);
   };
+
+  let items = {
+    v1: ItemV1,
+    v2: ItemV2
+  };
+  let renderItem = items[listType];
 </script>
 
-<style>
-  div {
-    border: 1px solid #aaa;
-    border-radius: 2px;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
-    padding: 1em;
-    margin: 0 0 1em 0;
-  }
-</style>
-
-<div>
+<div class="nicebox">
   <button on:click={onClick}>Edit list</button>
 </div>
 
@@ -55,7 +55,7 @@
     <ul>
       {#each data as item}
         <li>
-          <span>{item}</span>
+          <svelte:component this={renderItem} bind:item={item}/>
         </li>
       {/each}
     </ul>

@@ -4,42 +4,35 @@
   // TODO can I change aList to store/alist?
   import { router, aList } from "./router.js";
   import { isObjectEmpty } from "./utils.js";
+  import ListEditLabels from "./list.edit.labels.svelte";
+  import ListEditData from "./list.edit.data.svelte";
+  import MessageBox from "./messagebox.svelte";
 
-  let message;
+  let feedback;
   let title;
   let labels = [];
   let data = [];
   let hasBeenRemoved = false;
-
+  let listType;
   const unsubscribe = aList.subscribe(value => {
     if (isObjectEmpty(value)) {
       title = undefined;
       labels = undefined;
       data = undefined;
       hasBeenRemoved = true;
+      listType = undefined;
       return;
     }
     title = value.info.title;
+    listType = value.info.type;
     labels = value.info.labels;
     data = value.data;
   });
 
   onDestroy(unsubscribe);
 
-  function setTitle(event) {
-    aList.setTitle(event.target.value);
-  }
-
-  function clearMessage() {
-    message = null;
-  }
-
-  function add() {
-    aList.addItem("");
-  }
-
   async function save() {
-    message = await aList.save();
+    feedback = await aList.save();
   }
 
   async function deleteList() {
@@ -50,10 +43,18 @@
     if (response.status === 200) {
       hasBeenRemoved = true;
     }
-    message = response.body.message;
+    feedback = response.body.message;
   }
 
-  function removeItem(index) {
+  function setTitle(event) {
+    aList.setTitle(event.target.value);
+  }
+
+  function newDataItem() {
+    aList.newDataItem($aList.info.type);
+  }
+
+  function removeDataItem(index) {
     aList.removeItem(index);
   }
 
@@ -66,70 +67,36 @@
     aList.removeLabel(index);
   }
 
-  function handleKeyDown(event) {
-    debugger;
-    if (event.keyCode === 13) {
+  function handleMessage(event) {
+    if (event.detail.action === "addLabel") {
       addLabel();
-      return;
+    } else if (event.detail.action === "removeLabel") {
+      removeLabel(event.detail.index);
+    } else if (event.detail.action === "newDataItem") {
+      newDataItem();
+    } else if (event.detail.action === "removeDataItem") {
+      removeDataItem(event.detail.index);
     }
   }
 </script>
 
-<style>
-  div {
-    border: 1px solid #aaa;
-    border-radius: 2px;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
-    padding: 1em;
-    margin: 0 0 1em 0;
-  }
-</style>
-
-{#if message}
-<div on:click={() => clearMessage() } title="Click to dismiss.">
-  <span>message: {message}</span>
-</div>
-{/if}
+<MessageBox feedback={feedback} />
 
 {#if !hasBeenRemoved}
-<div>
+<div class="nicebox">
   <span>Title:</span>
   <input type="text" value={title} on:keyup={setTitle}/>
 </div>
 
-<div>
-  <button on:click={add}>+ item</button>
+<div class="nicebox">
+  <button on:click={newDataItem}>+ item</button>
   <button on:click={addLabel}>+ label</button>
 </div>
 
-{#if labels && labels.length > 0 }
-<div>
-  <ul>
-    {#each labels as item, i}
-      <li>
-        <input type="text" bind:value={item} on:keydown={handleKeyDown}/>
-        <span on:click={() => removeLabel(i)}>x</span>
-      </li>
-    {/each}
-  </ul>
-</div>
-{/if}
+<ListEditLabels on:message={handleMessage} bind:labels={labels} />
+<ListEditData on:message={handleMessage} bind:data={data} listType={listType}/>
 
-{#if data.length > 0 }
-<div>
-  <p>Data</p>
-  <ul>
-    {#each data as item, i}
-      <li>
-        <input type="text" bind:value={item} />
-        <span on:click={() => removeItem(i)}>x</span>
-      </li>
-    {/each}
-  </ul>
-</div>
-{/if}
-
-<div>
+<div class="nicebox">
   <button on:click={save}>save</button>
   <button on:click={deleteList}>Delete</button>
 </div>

@@ -47,15 +47,13 @@ function showScreenListsByMe() {
 
 function showScreenListView(_aList) {
   setAlist(_aList);
-  let id = "alist:view:" + _aList.info.type;
-  renderScreen.set(id);
+  renderScreen.set("alist:view");
   saveRenderScreen();
 }
 
 function showScreenListEdit(_aList) {
   aList.set(_aList);
-  let id = "alist:edit:" + _aList.info.type;
-  renderScreen.set(id);
+  renderScreen.set("alist:edit");
   saveRenderScreen();
 }
 
@@ -126,9 +124,9 @@ function createRouter() {
         showScreenOptions();
       } else if (config.renderScreen === "lists:by:me") {
         showScreenListsByMe();
-      } else if (config.renderScreen.startsWith("alist:view")) {
+      } else if (config.renderScreen === "alist:view") {
         showScreenListView(get(aList));
-      } else if (config.renderScreen.startsWith("alist:edit")) {
+      } else if (config.renderScreen ===  "alist:edit") {
         showScreenListEdit(get(aList));
       } else if (config.renderScreen === "alist:new") {
         showScreenListNew();

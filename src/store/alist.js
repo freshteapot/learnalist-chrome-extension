@@ -96,12 +96,6 @@ function create() {
         return aList;
       });
     },
-    addItem: function(item) {
-      update(function(aList) {
-        aList.data.push(item);
-        return aList;
-      });
-    },
     removeItem: function(index) {
       update(function(aList) {
         aList.data.splice(index, 1);
@@ -117,6 +111,28 @@ function create() {
     removeLabel: function(index) {
       update(function(aList) {
         aList.info.labels.splice(index, 1);
+        return aList;
+      });
+    },
+    newDataItem: function(listType) {
+      let item;
+      switch (listType) {
+        case "v1":
+          item = "";
+          break;
+        case "v2":
+          item = {
+            from: "",
+            to: ""
+          };
+          break;
+        default:
+        throw Error("List Type not supported, yet!");
+          return;
+          break;
+      }
+      update(function(aList) {
+        aList.data.push(item);
         return aList;
       });
     }
