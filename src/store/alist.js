@@ -24,9 +24,6 @@ function create() {
         let response = await api.PostList(current);
         if (response.status === 201) {
           let serverList = response.body;
-          // TODO fix this on the server.
-          serverList.info.labels = [];
-          response.body = serverList;
           set(serverList);
           localStorage.setItem("aList", JSON.stringify(serverList));
           return response;
@@ -83,8 +80,6 @@ function create() {
             aList = response.body;
             return aList;
           });
-          // TODO fix this on the server.
-          response.body.info.labels = [];
           localStorage.setItem("aList", JSON.stringify(response.body));
           return "Saved to the server.";
         } else {

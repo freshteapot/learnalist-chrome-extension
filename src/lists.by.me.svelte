@@ -2,10 +2,6 @@
   import { router, promise } from "./router.js";
 
   const onClick = aList => () => {
-    // TODO fix this in the backend.
-    if (aList.info.labels === undefined) {
-      aList.info.labels = [];
-    }
     router.showScreenListView(aList);
   };
 </script>

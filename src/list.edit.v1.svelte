@@ -59,10 +59,19 @@
 
   function addLabel() {
     aList.addLabel("");
+    // TODO focus on the next new line
   }
 
   function removeLabel(index) {
     aList.removeLabel(index);
+  }
+
+  function handleKeyDown(event) {
+    debugger;
+    if (event.keyCode === 13) {
+      addLabel();
+      return;
+    }
   }
 </script>
 
@@ -98,7 +107,7 @@
   <ul>
     {#each labels as item, i}
       <li>
-        <input type="text" bind:value={item} />
+        <input type="text" bind:value={item} on:keydown={handleKeyDown}/>
         <span on:click={() => removeLabel(i)}>x</span>
       </li>
     {/each}
