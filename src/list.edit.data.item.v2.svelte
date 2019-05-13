@@ -14,5 +14,5 @@
     }
   }
 </script>
-<input type="text" bind:value={item.from} on:onkeypress={handleKeyDown}/>
-<input type="text" bind:value={item.to} on:onkeypress={handleKeyDown}/>
+<input type="text" placeholder="From" bind:value={item.from} on:onkeypress={handleKeyDown}/>
+<input type="text" placeholder="To" bind:value={item.to} on:onkeypress={handleKeyDown}/>
