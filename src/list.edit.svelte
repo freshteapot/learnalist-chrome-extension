@@ -31,6 +31,10 @@
 
   onDestroy(unsubscribe);
 
+  function viewList() {
+    router.showScreenListView($aList);
+  }
+
   async function save() {
     feedback = await aList.save();
   }
@@ -99,5 +103,6 @@
 <div class="nicebox">
   <button on:click={save}>save</button>
   <button on:click={deleteList}>Delete</button>
+  <button on:click={viewList}>Cancel</button>
 </div>
 {/if}
