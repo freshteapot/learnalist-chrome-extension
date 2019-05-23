@@ -126,8 +126,14 @@ function create() {
             to: ""
           };
           break;
+        case "v4":
+          item = {
+            content: "",
+            url: ""
+          };
+          break;
         default:
-        throw Error("List Type not supported, yet!");
+          throw Error("List Type not supported, yet!");
           return;
           break;
       }

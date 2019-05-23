@@ -1,7 +1,7 @@
 <script>
   import { router, aList } from "./router.js";
   let title = "";
-  let listTypes = ["v1", "v2"];
+  let listTypes = ["v1", "v2", "v4"];
   let selected;
   let message;
 

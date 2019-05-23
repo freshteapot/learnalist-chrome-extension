@@ -5,6 +5,7 @@
   import MessageBox from "./messagebox.svelte";
   import ItemV1 from "./list.view.data.item.v1.svelte";
   import ItemV2 from "./list.view.data.item.v2.svelte";
+  import ItemV4 from "./list.view.data.item.v4.svelte";
 
   let feedback;
   let title;
@@ -49,7 +50,8 @@
 
   let items = {
     v1: ItemV1,
-    v2: ItemV2
+    v2: ItemV2,
+    v4: ItemV4
   };
   let renderItem = items[listType];
 </script>

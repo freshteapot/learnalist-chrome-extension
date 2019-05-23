@@ -2,6 +2,7 @@
   import { createEventDispatcher } from "svelte";
   import ItemV1 from "./list.edit.data.item.v1.svelte";
   import ItemV2 from "./list.edit.data.item.v2.svelte";
+  import ItemV4 from "./list.edit.data.item.v4.svelte";
 
   const dispatch = createEventDispatcher();
 
@@ -24,7 +25,8 @@
   }
   let items = {
     v1: ItemV1,
-    v2: ItemV2
+    v2: ItemV2,
+    v4: ItemV4
   };
   let renderItem = items[listType];
 </script>
