@@ -19,12 +19,14 @@
       let basicAuth = btoa(options.username + ":" + options.password);
       localStorage.setItem("username", options.username);
       localStorage.setItem("basicAuth", basicAuth);
+      localStorage.removeItem("bearerAuth");
     } else {
       errorMessage = "You need to set a username and password";
       console.log(errorMessage);
 
       localStorage.setItem("username", "");
       localStorage.setItem("basicAuth", "");
+      localStorage.removeItem("bearerAuth");
       return false;
     }
     localStorage.setItem("server", options.server);
@@ -32,6 +34,10 @@
   }
   function reset() {
     console.log("reset");
+    localStorage.setItem("username", "");
+    localStorage.setItem("basicAuth", "");
+    localStorage.removeItem("bearerAuth");
+    localStorage.removeItem("server");
   }
 </script>
 

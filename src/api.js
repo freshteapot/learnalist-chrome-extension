@@ -1,9 +1,9 @@
-import { config, getBasicAuth, getServer } from "./config.js";
+import { config, getAuth, getServer } from "./config.js";
 
 function getHeaders() {
   return {
     "Content-Type": "application/json",
-    Authorization: getBasicAuth()
+    Authorization: getAuth()
   };
 }
 async function GetListsByLabel(label) {

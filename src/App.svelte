@@ -27,3 +27,4 @@
 
 <Menu />
 <svelte:component this={options[$renderScreen]} />
+<a target="_blank" href="http://localhost:1234/login.html">login</a>

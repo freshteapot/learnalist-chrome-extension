@@ -31,13 +31,20 @@ function loadState() {
 
 loadState();
 
-function getBasicAuth() {
-  let basicAuth = localStorage.getItem("basicAuth");
-  return "Basic " + basicAuth;
+function getAuth() {
+  if (localStorage.hasOwnProperty('bearerAuth')) {
+    return "Bearer " + localStorage.getItem("bearerAuth");
+  }
+
+  if (localStorage.hasOwnProperty('basicAuth')) {
+    return "Basic " + localStorage.getItem("basicAuth");
+  }
+
+  return "";
 }
 
 function getServer() {
   return localStorage.getItem("server");
 }
 
-export { config, getBasicAuth, getServer };
+export { config, getAuth, getServer };
